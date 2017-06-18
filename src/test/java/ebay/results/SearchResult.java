@@ -1,4 +1,4 @@
-package ebay;
+package ebay.results;
 
 import org.openqa.selenium.WebElement;
 
