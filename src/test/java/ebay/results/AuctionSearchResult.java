@@ -9,7 +9,8 @@ public class AuctionSearchResult extends SearchResult {
 
     public AuctionSearchResult(WebElement webElement) {
         super(webElement);
-        this.bids = webElement.findElement(RESULT_ITEM_BIDS).getText();
+        String bidsText = webElement.findElement(RESULT_ITEM_BIDS).getText();
+        this.bids = bidsText.substring(0, bidsText.indexOf(" "));
     }
 
     public String getBids() {
