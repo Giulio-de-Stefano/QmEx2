@@ -4,11 +4,14 @@ import ebay.results.AuctionSearchResult;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +39,13 @@ public class TestEbay {
         final String TARGET_URL = "https://www.ebay.co.uk/";
         final String SEARCH_TERM = "iPhone";
 
-        webDriver = new ChromeDriver(); // start with a fresh session for each test
+        final String UBLOCK_ORIGIN_PATH = getenv("USERPROFILE") + "\\Desktop\\exercise\\ublock_origin_1_12_4.crx";
+        ChromeOptions options = new ChromeOptions();
+        options.addExtensions(new File(UBLOCK_ORIGIN_PATH));
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+        webDriver = new ChromeDriver(capabilities); // start with a fresh session for each test
         webDriver.manage().timeouts().implicitlyWait(5, SECONDS);
         webDriver.get(TARGET_URL);
         webDriver.findElement(SEARCH_INPUT).sendKeys(SEARCH_TERM);
