@@ -13,7 +13,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,21 +45,17 @@ public class EbayStepDefs {
         webDriver.findElement(SEARCH_BTN).click();
     }
 
-    @And("^I filter by (.*)$")
-    public void I_filter_by(String filter) throws OperationNotSupportedException {
-        switch (filter.toLowerCase()) {
-            case "auction":
-                webDriver.findElement(AUCTION_FILTER_BTN).click();
-                break;
-            case "lowest price":
-                Actions actions = new Actions(webDriver);
-                actions.moveToElement(webDriver.findElement(FILTER_MENU)).perform();
-                WebDriverWait wait = new WebDriverWait(webDriver, 5);
-                wait.until(ExpectedConditions.elementToBeClickable(LOWEST_PRICE_INCL_PP_LI)).click();
-                break;
-            default:
-                throw new OperationNotSupportedException("Filter not supported");
-        }
+    @And("^I filter by auction$")
+    public void I_filter_by_auction() {
+        webDriver.findElement(AUCTION_FILTER_BTN).click();
+    }
+
+    @And("^I filter by lowest price$")
+    public void I_filter_by_lowest_price() {
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(webDriver.findElement(FILTER_MENU)).perform();
+        WebDriverWait wait = new WebDriverWait(webDriver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(LOWEST_PRICE_INCL_PP_LI)).click();
     }
 
     @Then("^each result displays the number of bids$")
