@@ -9,4 +9,4 @@ out "installUblock()" in ChromeDriverBuilder.
 3) Make sure the paths to the files above are correct relative to your system in ChromeDriverBuilder.
 4) Now you can either run using "mvn clean test", running TestRunner.java or just running the feature/scenario directly.
 5) Reporting is enabled (and pretty!) but will only be running when running through mvn or TestRunner.java.
-6) I haven't used Background or Scenario Outlines simply because the complexity of the exercise is low.
+6) I haven't used Background or Scenario Outlines simply because they don't make much sense with just 1 test case.
