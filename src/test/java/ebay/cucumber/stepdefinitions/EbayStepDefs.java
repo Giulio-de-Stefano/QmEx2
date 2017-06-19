@@ -9,6 +9,9 @@ import ebay.results.AuctionSearchResult;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.LinkedHashSet;
@@ -50,7 +53,10 @@ public class EbayStepDefs {
                 webDriver.findElement(AUCTION_FILTER_BTN).click();
                 break;
             case "lowest price":
-
+                Actions actions = new Actions(webDriver);
+                actions.moveToElement(webDriver.findElement(FILTER_MENU)).perform();
+                WebDriverWait wait = new WebDriverWait(webDriver, 5);
+                wait.until(ExpectedConditions.elementToBeClickable(LOWEST_PRICE_INCL_PP_LI)).click();
                 break;
             default:
                 throw new OperationNotSupportedException("Filter not supported");

@@ -7,6 +7,6 @@ Feature: Search results in Ebay queries show expected data
     When I navigate to url https://www.ebay.co.uk/
     And I query for item iphone
     And I filter by auction
-#    And I filter by lowest price
+    And I filter by lowest price
     Then each result displays the number of bids
 
