@@ -1,6 +1,6 @@
 Feature: Search results in Ebay queries show expected data
 
-  # If there were multiple scenarios I'd use a Background to pool the common tests
+  # If there were multiple scenarios I'd use a Background to pool the common steps
 
   Scenario: Bids are displayed on auctions in the search results
     Given browser is opened
