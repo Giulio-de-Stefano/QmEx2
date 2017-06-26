@@ -1,11 +1,16 @@
 package ebay.pages;
 
+import ebay.results.AuctionSearchResult;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SearchResultsPage extends PageAB {
 
@@ -26,7 +31,7 @@ public class SearchResultsPage extends PageAB {
     WebElement lowestPriceIncludingPPListElement;
 
     @FindBy(className = "sresult")
-    WebElement resultItems;
+    List<WebElement> searchResults;
 
     @FindBy(className = "lvprice")
     WebElement resultItemPrice;
@@ -46,5 +51,15 @@ public class SearchResultsPage extends PageAB {
         actions.moveToElement(filterMenu).perform();
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(lowestPriceIncludingPPListElement)).click();
+    }
+
+    public Set<AuctionSearchResult> getAuctionSearchResults() {
+        Set<AuctionSearchResult> auctionSearchResults = new LinkedHashSet<>();
+
+        for (WebElement result : this.searchResults) {
+            auctionSearchResults.add(new AuctionSearchResult(result));
+        }
+
+        return auctionSearchResults;
     }
 }

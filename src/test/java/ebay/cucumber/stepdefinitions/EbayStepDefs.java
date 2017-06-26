@@ -9,18 +9,11 @@ import ebay.pages.SearchResultsPage;
 import ebay.results.AuctionSearchResult;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
-import static ebay.EbayElements.RESULT_ITEM;
-import static ebay.EbayElements.RESULT_LIST;
 import static java.lang.Integer.parseInt;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 /**
  * These steps can be organised in separate classes as they grow in number/complexity
@@ -39,31 +32,27 @@ public class EbayStepDefs {
 
     @And("^I query for item (.*)$")
     public void I_query_for_item(String item) {
-        HomePage homePage = PageFactory.initElements(webDriver, HomePage.class);
+        HomePage homePage = initElements(webDriver, HomePage.class);
         homePage.search(item);
     }
 
     @And("^I filter by auction$")
     public void I_filter_by_auction() {
-        SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
+        SearchResultsPage searchResultsPage = initElements(webDriver, SearchResultsPage.class);
         searchResultsPage.filterByAuction();
     }
 
     @And("^I filter by lowest price$")
     public void I_filter_by_lowest_price() {
-        SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
+        SearchResultsPage searchResultsPage = initElements(webDriver, SearchResultsPage.class);
         searchResultsPage.filterByLowestPrice();
     }
 
     @Then("^each result displays the number of bids$")
     public void each_result_displays_the_number_of_bids() {
-        List<WebElement> searchResults = webDriver.findElement(RESULT_LIST).findElements(RESULT_ITEM);
-        Set<AuctionSearchResult> searchResultSet = new LinkedHashSet<>();
+        SearchResultsPage searchResultsPage = initElements(webDriver, SearchResultsPage.class);
 
-        for (WebElement webElement : searchResults)
-            searchResultSet.add(new AuctionSearchResult(webElement));
-
-        for (AuctionSearchResult res : searchResultSet) {
+        for (AuctionSearchResult res : searchResultsPage.getAuctionSearchResults()) {
             String bids = res.getBids();
             System.out.println("Checking auction: [" + res.getTitle() + "]");
 
