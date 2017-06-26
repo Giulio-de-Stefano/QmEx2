@@ -18,9 +18,6 @@ public class SearchResultsPage extends PageAB {
         super(driver);
     }
 
-    @FindBy(id = "ListViewInner")
-    WebElement resultList;
-
     @FindBy(id = "DashSortByContainer")
     WebElement filterMenu;
 
