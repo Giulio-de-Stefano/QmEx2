@@ -1,5 +1,6 @@
 package ebay.cucumber.stepdefinitions;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -7,7 +8,6 @@ import ebay.helper.BrowserFactory;
 import ebay.pages.HomePage;
 import ebay.pages.SearchResultsPage;
 import ebay.results.AuctionSearchResult;
-import org.junit.After;
 import org.openqa.selenium.WebDriver;
 
 import static java.lang.Integer.parseInt;
