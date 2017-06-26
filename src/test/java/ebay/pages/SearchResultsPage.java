@@ -17,13 +17,15 @@ public class SearchResultsPage extends PageAB {
 
     @FindBy(id = "DashSortByContainer")
     WebElement filterMenu;
+
     @FindBy(css = ".tgl_button.center_b")
     WebElement auctionFilterBtn;
+
     @FindBy(xpath = "//*[text()='Lowest price + P&P']")
     WebElement lowestPriceIncludingPPListElement;
+
     @FindBy(className = "sresult")
     List<WebElement> searchResults;
-    @FindBy(className = "lvprice")
 
     private By.ByClassName byTitle = new By.ByClassName("vip");
     private By.ByClassName byPrice = new By.ByClassName("lvprice");
