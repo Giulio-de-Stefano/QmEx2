@@ -4,12 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class HomePage {
-
-    WebDriver driver;
+public class HomePage extends PageAB {
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @FindBy(className = "ui-autocomplete-input")
@@ -22,6 +20,4 @@ public class HomePage {
         searchInput.sendKeys(query);
         searchButton.click();
     }
-
-
 }

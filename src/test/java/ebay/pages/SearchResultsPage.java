@@ -1,9 +1,17 @@
 package ebay.pages;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SearchResultsPage {
+public class SearchResultsPage extends PageAB {
+
+    public SearchResultsPage(WebDriver driver) {
+        super(driver);
+    }
 
     @FindBy(id = "ListViewInner")
     WebElement resultList;
@@ -29,4 +37,14 @@ public class SearchResultsPage {
     @FindBy(className = "lvformat")
     WebElement resultItemBids;
 
+    public void filterByAuction() {
+        auctionFilterBtn.click();
+    }
+
+    public void filterByLowestPrice() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(filterMenu).perform();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(lowestPriceIncludingPPListElement)).click();
+    }
 }
