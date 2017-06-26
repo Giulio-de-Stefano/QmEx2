@@ -1,10 +1,9 @@
 package ebay.cucumber.stepdefinitions;
 
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import ebay.ChromeDriverBuilder;
+import ebay.helper.BrowserFactory;
 import ebay.results.AuctionSearchResult;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
@@ -29,14 +28,9 @@ import static org.junit.Assert.assertTrue;
 public class EbayStepDefs {
     private WebDriver webDriver = null;
 
-    @Given("^browser is opened$")
-    public void browser_is_opened() {
-        webDriver = ChromeDriverBuilder.buildInstance();
-    }
-
     @When("^I navigate to url (.*)$")
     public void I_navigate_to_url(String url) {
-        webDriver.get(url);
+        webDriver = BrowserFactory.startBrowser("chrome", url);
     }
 
     @And("^I query for item (.*)$")
