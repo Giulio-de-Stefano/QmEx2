@@ -10,16 +10,14 @@ import ebay.results.AuctionSearchResult;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static ebay.EbayElements.*;
+import static ebay.EbayElements.RESULT_ITEM;
+import static ebay.EbayElements.RESULT_LIST;
 import static java.lang.Integer.parseInt;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.junit.Assert.assertTrue;
@@ -30,12 +28,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class EbayStepDefs {
     private WebDriver webDriver = null;
-    private HomePage homePage = PageFactory.initElements(webDriver, HomePage.class);
-    private SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
 
     @When("^I navigate to url (.*)$")
     public void I_navigate_to_url(String url) {
-        webDriver = BrowserFactory.startBrowser("chrome", url);
+        if (webDriver == null)
+            webDriver = BrowserFactory.startBrowser("chrome", url);
+        else
+            webDriver.get(url);
     }
 
     @And("^I query for item (.*)$")
@@ -46,15 +45,14 @@ public class EbayStepDefs {
 
     @And("^I filter by auction$")
     public void I_filter_by_auction() {
-        webDriver.findElement(AUCTION_FILTER_BTN).click();
+        SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
+        searchResultsPage.filterByAuction();
     }
 
     @And("^I filter by lowest price$")
     public void I_filter_by_lowest_price() {
-        Actions actions = new Actions(webDriver);
-        actions.moveToElement(webDriver.findElement(FILTER_MENU)).perform();
-        WebDriverWait wait = new WebDriverWait(webDriver, 5);
-        wait.until(ExpectedConditions.elementToBeClickable(LOWEST_PRICE_INCL_PP_LI)).click();
+        SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
+        searchResultsPage.filterByLowestPrice();
     }
 
     @Then("^each result displays the number of bids$")
