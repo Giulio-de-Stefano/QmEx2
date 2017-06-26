@@ -14,30 +14,24 @@ import java.util.Set;
 
 public class SearchResultsPage extends PageAB {
 
+    @FindBy(id = "DashSortByContainer")
+    WebElement filterMenu;
+    @FindBy(css = ".tgl_button.center_b")
+    WebElement auctionFilterBtn;
+    @FindBy(xpath = "//*[text()='Lowest price + P&P']")
+    WebElement lowestPriceIncludingPPListElement;
+    @FindBy(className = "sresult")
+    List<WebElement> searchResults;
+    @FindBy(className = "lvprice")
+    List<WebElement> resultItemPrices;
+    @FindBy(className = "vip")
+    List<WebElement> resultItemTitles;
+    @FindBy(className = "lvformat")
+    List<WebElement> resultItemBids;
+
     public SearchResultsPage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(id = "DashSortByContainer")
-    WebElement filterMenu;
-
-    @FindBy(css = ".tgl_button.center_b")
-    WebElement auctionFilterBtn;
-
-    @FindBy(xpath = "//*[text()='Lowest price + P&P']")
-    WebElement lowestPriceIncludingPPListElement;
-
-    @FindBy(className = "sresult")
-    List<WebElement> searchResults;
-
-    @FindBy(className = "lvprice")
-    WebElement resultItemPrice;
-
-    @FindBy(className = "vip")
-    WebElement resultItemTitle;
-
-    @FindBy(className = "lvformat")
-    WebElement resultItemBids;
 
     public void filterByAuction() {
         auctionFilterBtn.click();
@@ -53,8 +47,11 @@ public class SearchResultsPage extends PageAB {
     public Set<AuctionSearchResult> getAuctionSearchResults() {
         Set<AuctionSearchResult> auctionSearchResults = new LinkedHashSet<>();
 
-        for (WebElement result : this.searchResults) {
-            auctionSearchResults.add(new AuctionSearchResult(result));
+        for (int i = 0; i < searchResults.size(); i++) {
+            String title = resultItemTitles.get(i).getText();
+            String price = resultItemPrices.get(i).getText();
+            String bids = resultItemBids.get(i).getText();
+            auctionSearchResults.add(new AuctionSearchResult(title, price, bids));
         }
 
         return auctionSearchResults;

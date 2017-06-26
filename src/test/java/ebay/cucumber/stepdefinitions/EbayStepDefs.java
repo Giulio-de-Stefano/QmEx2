@@ -54,7 +54,7 @@ public class EbayStepDefs {
 
         for (AuctionSearchResult res : searchResultsPage.getAuctionSearchResults()) {
             String bids = res.getBids();
-            System.out.println("Checking auction: [" + res.getTitle() + "]");
+            System.out.println("Checking auction: [" + res.toString() + "]");
 
             assertTrue("Bids not null", bids != null);
             assertTrue("Bids not empty", isNotEmpty(bids));
