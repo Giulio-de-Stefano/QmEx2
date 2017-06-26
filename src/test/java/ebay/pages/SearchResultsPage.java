@@ -1,6 +1,7 @@
 package ebay.pages;
 
 import ebay.results.AuctionSearchResult;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,11 +24,10 @@ public class SearchResultsPage extends PageAB {
     @FindBy(className = "sresult")
     List<WebElement> searchResults;
     @FindBy(className = "lvprice")
-    List<WebElement> resultItemPrices;
-    @FindBy(className = "vip")
-    List<WebElement> resultItemTitles;
-    @FindBy(className = "lvformat")
-    List<WebElement> resultItemBids;
+
+    private By.ByClassName byTitle = new By.ByClassName("vip");
+    private By.ByClassName byPrice = new By.ByClassName("lvprice");
+    private By.ByClassName byBids = new By.ByClassName("lvformat");
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
@@ -47,10 +47,10 @@ public class SearchResultsPage extends PageAB {
     public Set<AuctionSearchResult> getAuctionSearchResults() {
         Set<AuctionSearchResult> auctionSearchResults = new LinkedHashSet<>();
 
-        for (int i = 0; i < searchResults.size(); i++) {
-            String title = resultItemTitles.get(i).getText();
-            String price = resultItemPrices.get(i).getText();
-            String bids = resultItemBids.get(i).getText();
+        for (WebElement result : searchResults) {
+            String title = result.findElement(byTitle).getText();
+            String price = result.findElement(byPrice).getText();
+            String bids = result.findElement(byBids).getText();
             auctionSearchResults.add(new AuctionSearchResult(title, price, bids));
         }
 
