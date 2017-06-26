@@ -4,11 +4,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import ebay.helper.BrowserFactory;
+import ebay.pages.HomePage;
+import ebay.pages.SearchResultsPage;
 import ebay.results.AuctionSearchResult;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,6 +30,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class EbayStepDefs {
     private WebDriver webDriver = null;
+    private HomePage homePage = PageFactory.initElements(webDriver, HomePage.class);
+    private SearchResultsPage searchResultsPage = PageFactory.initElements(webDriver, SearchResultsPage.class);
 
     @When("^I navigate to url (.*)$")
     public void I_navigate_to_url(String url) {
@@ -35,8 +40,8 @@ public class EbayStepDefs {
 
     @And("^I query for item (.*)$")
     public void I_query_for_item(String item) {
-        webDriver.findElement(SEARCH_INPUT).sendKeys(item);
-        webDriver.findElement(SEARCH_BTN).click();
+        HomePage homePage = PageFactory.initElements(webDriver, HomePage.class);
+        homePage.search(item);
     }
 
     @And("^I filter by auction$")

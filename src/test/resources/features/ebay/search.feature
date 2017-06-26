@@ -8,4 +8,3 @@ Feature: Search results in Ebay queries show expected data
     And I filter by auction
     And I filter by lowest price
     Then each result displays the number of bids
-
