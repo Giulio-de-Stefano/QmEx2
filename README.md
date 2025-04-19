@@ -1,4 +1,4 @@
-# TheOtherThingy
+# Some interview exercise...
 
 #How to run me
 
